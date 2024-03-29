@@ -157,6 +157,34 @@ document.getElementById('showCourseButton2').addEventListener('click', function(
     document.getElementById('courseCosts2').textContent = costenText;
 });
 
+ // Kursen gleichmäßig aufteilen [0,1,2,3,4]
+
+ function getdifferOfCourses (course1, course2){
+    if(course1.length === course2.length){ 
+        return false; 
+    }
+    else if((course1.length - course2.length == 1) || (course2.length - course1.length == 1)){
+        return false;
+    }
+    else return true;
+ }
+
+ document.getElementById('splitButton').addEventListener('click', function(){
+    var decision = getdifferOfCourses(sprachKursList, sprachKursList2);
+   if(decision === false){
+    alert("Die Sprachkursen könnten nicht aufgeteilt werden, sie haben schon eine optimale Verteilung. ");
+
+   }
+   else {
+    var twoArrays = sprachKursList.concat(sprachKursList2);
+    sprachKursList = twoArrays.slice(0, Math.ceil(twoArrays.length/2));
+    sprachKursList2 = twoArrays.slice((Math.ceil(twoArrays.length/2)), twoArrays.length); 
+    alert("Sprachkurs Nr. 1 : " + sprachKursList + " \nSprachkurs Nr. 2 : " + sprachKursList2);
+   }
+ });
+
+
+
 
 
 

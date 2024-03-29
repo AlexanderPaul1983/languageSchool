@@ -16,10 +16,9 @@
     <h3 id="money-output"></h3>
 
 </div>
-<br><br>
-<div>
-    <h1>Sprachschule</h1>
-    <br>
+<br><br><br>
+<h1>Sprachschule</h1>
+<div style="border: 5px groove black; padding: 20px">
     <h2>Sprachkurs registrieren:</h2>
     <h3>Sprachkurs Nr.: 1</h3>
     <p>Geben Sie den Namen der Teilnehmer ein, um den Teilnehmer bei der Sprachkurs zu registrieren.</p>
@@ -32,18 +31,37 @@
     <p>Fügen Sie den gesuchten Namen ein</p>
     <input type="text" id="suchName"> <button id="suchButton">Suchen</button>
 </div>
-<br>
-<h2>Automatische Regestrierung</h2>
-<input type="text" id="autoReg"> <button id="autoRegButton">Registrieren</button>
+<br><br><br>
+<div style="border: 5px groove black; padding: 20px">
+    <h2>Automatische Regestrierung</h2>
+    <input type="text" id="autoReg"> <button id="autoRegButton">Registrieren</button>
+</div>
 
+<br><br><br>
+<div style="border: 5px groove black; padding: 20px">
+    <h2>Teilnehmer aus der Sprachschule abmelden</h2>
+    <input type="text" id="nameToDelete"> <button id="deleteButton">Abmelden</button>
+</div>
+
+<br><br><br>
+<div style="border: 5px groove black; padding: 20px">
+    <h2>Sprachkurskosten:</h2>
+    <br>
+    <h3>Kosten für den Sprachkurs Nr.1 </h3><button id="showCourseButton1">Anzeigen</button> <h3 id="courseCosts1"></h3>
+    <h3>Kosten für den Sprachkurs Nr.2 </h3><button id="showCourseButton2">Anzeigen</button> <h3 id="courseCosts2"></h3>
+</div>
+
+<br><br><br>
+<div style="border: 5px groove black; padding: 20px">
+    <h2>Sprachkurse gleichmäßig aufteilen</h2>
 <br>
-<h2>Teilnehmer aus der Sprachschule abmelden</h2>
-<input type="text" id="nameToDelete"> <button id="deleteButton">Abmelden</button>
-<h2>Sprachkurskosten:</h2>
+    
+    <button id="splitButton">Aufteilen</button>
 <br>
-<h3>Kosten für den Sprachkurs Nr.:1 </h3><button id="showCourseButton1">Anzeigen</button> <h3 id="courseCosts1"></h3>
-<h3>Kosten für den Sprachkurs Nr.:2 </h3><button id="showCourseButton2">Anzeigen</button> <h3 id="courseCosts2"></h3>
-<br><br>
+</div>
+<br><br><br>
+
+
 
     <script src="app.js"></script>
 </body>
