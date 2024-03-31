@@ -119,11 +119,13 @@ document.getElementById('autoRegButton').addEventListener('click', function(){
 document.getElementById('deleteButton').addEventListener('click', function() {
     var nameToDelete = document.getElementById('nameToDelete').value;
     if(sprachKursList.includes(nameToDelete)){
-        sprachKursList.shift(nameToDelete);
+        var indexOFDeleteName = sprachKursList.indexOf(nameToDelete);
+        sprachKursList.splice(indexOFDeleteName, 1);
         alert("Der Teilnehmer: " + nameToDelete + " wurde aus allen Kursen entfernt.");
     }
     else if (sprachKursList2.includes(nameToDelete)) {
-        sprachKursList2.shift(nameToDelete);
+        var indexOFDeleteName2 = sprachKursList2.indexOf(nameToDelete);
+        sprachKursList2.splice(indexOFDeleteName2, 1);
         alert("Der Teilnehmer: " + nameToDelete + " wurde aus allen Kursen entfernt.");
     } else {
         alert(nameToDelete + " ist in keinem Kurs eingeschrieben. Überprüfen Sie, ob der Namen richtig geschrieben wurde!");
@@ -157,7 +159,7 @@ document.getElementById('showCourseButton2').addEventListener('click', function(
     document.getElementById('courseCosts2').textContent = costenText;
 });
 
- // Kursen gleichmäßig aufteilen [0,1,2,3,4]
+ // Kursen gleichmäßig aufteilen
 
  function getdifferOfCourses (course1, course2){
     if(course1.length === course2.length){ 
@@ -170,7 +172,7 @@ document.getElementById('showCourseButton2').addEventListener('click', function(
  }
 
  document.getElementById('splitButton').addEventListener('click', function(){
-    var decision = getdifferOfCourses(sprachKursList, sprachKursList2);
+    let decision = getdifferOfCourses(sprachKursList, sprachKursList2);
    if(decision === false){
     alert("Die Sprachkursen könnten nicht aufgeteilt werden, sie haben schon eine optimale Verteilung. ");
 
@@ -182,6 +184,171 @@ document.getElementById('showCourseButton2').addEventListener('click', function(
     alert("Sprachkurs Nr. 1 : " + sprachKursList + " \nSprachkurs Nr. 2 : " + sprachKursList2);
    }
  });
+
+ // Levels und Kosten berechnen
+
+ let levels = ["A1", "A2", "B1", "B2", "C1", "C2"];
+ let prices = [400, 500, 550, 600, 650, 700];
+ 
+
+ document.getElementById('levelPriceButton').addEventListener('click', function(event){
+    event.preventDefault();
+    let priceCounter = 0;
+    let fromLevel = document.getElementById('levelsOpt').value;
+    let toLevel = document.getElementById('levelsOpt2').value;
+    let indexOfStartLevel = levels.indexOf(fromLevel);
+    let indexOfEndLevel = levels.indexOf(toLevel);
+    if(indexOfStartLevel > indexOfEndLevel ){
+        alert("Sie haben die Sprachlevels falsch ausgewählt");
+    } else {
+    for (let index = indexOfStartLevel; index <= indexOfEndLevel; index++) {
+        priceCounter += prices[index];
+    }
+    alert("Gesamtpreis für die gewählten Levels: " + priceCounter + " Euro");
+}
+ });
+
+ // Level berechnen
+
+ document.getElementById('levelCounter').addEventListener('click', function() {
+    let budget = parseInt(document.getElementById('budget').value);
+    let actLevel = '';
+    let budgetcounter = 0;
+
+    for (let i = 0; i < prices.length; i++) {
+        if (budget >= (budgetcounter + prices[i])) {
+            budgetcounter += prices[i];
+            actLevel = levels[i]; 
+        } else {
+            break; 
+        }
+    }
+
+    alert("Mit dem Budget von " + budget + " können Sie bis " + actLevel + " erreichen.");
+});
+
+// Beispiel 6
+let studentsPerCourse = [
+    ["Max", "Monika"], // Erster Kurs
+    ["Erik", "Erika"] // Zweiter Kurs
+    ]
+    // Die Anzahl der Teilnehmer berechnen
+    document.getElementById('totalNmOfStudButton').addEventListener('click', function(){
+        let allStudents = 0;
+
+        studentsPerCourse.forEach(element => {
+            element.forEach(student =>{
+                allStudents++; 
+            });
+            
+        });
+        alert("In unseren Kursen sind insgesamt: " + allStudents + " Studenten eingeschrieben.");
+    });
+
+    // Ein Student löschen
+    document.getElementById("deleteBtn").addEventListener("click", function() {
+        let deletedName = document.getElementById('nameForDelete').value;
+        let found = false;
+
+        studentsPerCourse.forEach((course, index) => {
+            const studentIndex = course.indexOf(deletedName);
+            if (studentIndex !== -1) {
+                studentsPerCourse[index].splice(studentIndex, 1);
+                found = true;
+                alert(deletedName + " wurde aus dem Kurs entfernt.");
+                // Nach dem Löschen eines Studenten, brechen wir die Schleife ab
+                return;
+            }
+        });
+
+        if (!found) {
+            alert(deletedName + " ist nicht eingeschrieben.");
+        }
+    });
+
+    const courses = [
+        ['Christian', 'Annika'],
+        ['Julian', 'Lisa', 'Tobias']
+    ]
+
+    function getSmallestCourse(){
+        for (let index = 0; index < courses.length; index++) {
+            var indexOfCourse = 0;
+            var actCourse = courses[index].length;
+            var smallestKurs = 0;
+            if (smallestKurs <= actCourse){
+                smallestKurs = actCourse;
+            
+            }
+            else{
+                smallestKurs = courses[index].length;
+                indexOfCourse = index;
+            }
+            
+        }
+        console.log("Der Kurs "+ indexOfCourse + " ist aktuell der kleinste \n" + " und hat " + smallestKurs + " Teilnehmer.");
+        return indexOfCourse;
+        
+    }
+
+    function addStudent(name){
+        const smallestKurs = getSmallestCourse();
+        courses[smallestKurs].unshift(name);
+        console.log(name + " wurde zugefügt")
+    }
+
+    // Übung 8, Wörterbuch
+
+    const LANGUAGE_DE = ["hallo","heute","sprachkurs","willkommen","mikrofon","und"]
+    const LANGUAGE_EN = ["hello","today","language course","welcome","microphone","and"]
+
+
+    function translateWord(word) {
+        let existWord = LANGUAGE_DE.includes(word.toLowerCase());
+        if(existWord){
+            let indexOFWord = LANGUAGE_DE.indexOf(word.toLowerCase());
+            return LANGUAGE_EN[indexOFWord];
+        }
+        else{
+            return word;
+        }
+    
+    }
+
+    function ucFirst(word){
+        if(word == ""){return "";} 
+        let firstLetter = word.charAt(0).toUpperCase();
+        let restOfWord = word.slice(1); 
+    
+        return firstLetter + restOfWord;
+
+    }
+
+    function translateSentence(sentence) {
+        let splitedSentence = sentence.split(" ");
+        let engWords = [];  
+        for (let index = 0; index < splitedSentence.length; index++) {
+            if(index == 0){
+                let transeW = translateWord(splitedSentence[0]);
+                engWords.push(ucFirst(transeW));
+                
+            }
+            else{
+                engWords.push(translateWord(splitedSentence[index]));
+            }
+            
+        }
+        let completedSentencse = engWords.join(" ");
+        
+        return completedSentencse;
+    }
+
+    console.log(translateSentence("Hallo und willkommen beim Sprachkurs"));
+
+
+
+    
+
 
 
 
